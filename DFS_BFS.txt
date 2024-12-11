@@ -1,0 +1,89 @@
+DFS
+-----------
+
+from collections import defaultdict
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def addEdge(self, u, v):
+        self.graph[u].append(v)
+
+    def DFSUtil(self, v, visited):
+        visited.add(v)
+        print(v, end=' ')
+
+        for neighbour in self.graph[v]:
+            if neighbour not in visited:
+                self.DFSUtil(neighbour, visited)
+
+    def DFS(self, v):
+        visited = set()
+        self.DFSUtil(v, visited)
+
+
+def build_graph():
+    g = Graph()
+    num_edges = int(input("Enter the number of edges: "))
+    print("Enter the edges (format: u v):")
+    for _ in range(num_edges):
+        u, v = map(int, input().split())
+        g.addEdge(u, v)
+    return g
+
+
+if __name__ == "__main__":
+    user_graph = build_graph()
+
+    start_vertex = int(input("Enter the starting vertex for Depth First Traversal: "))
+
+    print("Depth First Traversal:")
+    user_graph.DFS(start_vertex)
+
+
+
+
+BFS
+----------
+
+from collections import defaultdict
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def addEdge(self, u, v):
+        self.graph[u].append(v)
+
+    def BFS(self, s):
+        visited = [False] * (max(self.graph) + 1)
+        queue = []
+        queue.append(s)
+        visited[s] = True
+
+        while queue:
+            s = queue.pop(0)
+            print(s, end=" ")
+
+            for i in self.graph[s]:
+                if not visited[i]:
+                    queue.append(i)
+                    visited[i] = True
+
+def build_graph():
+    g = Graph()
+    num_edges = int(input("Enter the number of edges: "))
+    print("Enter the edges (format: u v):")
+    for _ in range(num_edges):
+        u, v = map(int, input().split())
+        g.addEdge(u, v)
+    return g
+
+if __name__ == '__main__':
+    user_graph = build_graph()
+
+    start_vertex = int(input("Enter the starting vertex for Breadth First Traversal: "))
+
+    print("Breadth First Traversal:")
+    user_graph.BFS(start_vertex)
